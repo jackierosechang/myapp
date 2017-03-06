@@ -1,0 +1,9 @@
+$first: #ffffff;
+$second: yellow;
+
+body {
+  background-color: $first;
+  background-image: url('background.gif');
+  background-repeat: no-repeat;
+  color: $second;
+}
