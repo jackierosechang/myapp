@@ -150,7 +150,7 @@ gulp.task('javascript', function (done) {
 
 /**Bump version number and create new Git tag**/
 var bump = require('gulp-bump');
-var runSequence = require('run-sequence');
+var runSequence = require('run-sequence').use(gulp);
 var git = require('gulp-git');
 var fs = require('fs');
 
@@ -172,11 +172,16 @@ gulp.task('init', function(){
 });
 
 gulp.task('commit-changes', function () {
-  return gulp.src(['./*','!gulp4','!node_modules','!gulp-book','!node blueprints'])
+  return gulp.src(['./*','!gulp4','!node_modules','!gulp-book','!node blueprints','!app'])
     .pipe(git.add())
     .pipe(git.commit('[Prerelease] Bumped version number'));
 });
 
+gulp.task('addremote', function(){
+  git.addRemote('origin', 'git@github.com:jackierosechang/myapp.git', function (err) {
+    if (err) throw err;
+  });
+});
 gulp.task('push-changes', function (cb) {
   git.push('origin', 'master', cb);
 });
